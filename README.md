@@ -26,7 +26,7 @@ Before you do anything with the Si5351, you will need to initialize the communic
 
 Next, let's set the CLK0 output to 14 MHz):
 
-    si5351_set_freq(14000000ULL, SI5351_CLK0);
+    si5351_set_freq(14000000UL, SI5351_CLK0);
 
 If we like we can adjust the output drive power:
 
@@ -46,7 +46,7 @@ As indicated above, the library accepts and indicates clock frequencies in units
 
 The most simple way to set the output frequency is to let the library pick a PLL assignment for you. You do this by using the si5351_set_freq() function, which will use a PLL frequency of 900 MHz and assign all multisynths (clock outputs) to PLLA. This function will also calculate the PLL parameters based on the correction factor set with the si5351_set_correction() function:
 
-    si5351_set_freq(10140000ULL, SI5351_CLK0);
+    si5351_set_freq(10140000UL, SI5351_CLK0);
 
 You may also manually set the output frequency by specifiying the A, B, and C divider values for both the PLLs and multisynths (each fractional synth divides by `a * b/c`):
 
@@ -99,8 +99,6 @@ The phase of the output clock signal can be changed by using the set_phase() met
 Setting the phase of a clock requires that you manually set the PLL and take the PLL frequency into account when calculation the value to place in the phase register. As shown on page 10 of Silicon Labs Application Note 619 (AN619), the phase register is a 7-bit register, where a bit represents a phase difference of 1/4 the PLL period. Therefore, the best way to get an accurate phase setting is to make the PLL an even multiple of the clock frequency, depending on what phase you need.
 
 If you need a 90 degree phase shift (as in many RF applications), then it is quite easy to determine your parameters. Pick a PLL frequency that is an even multiple of your clock frequency (remember that the PLL needs to be in the range of 600 to 900 MHz). Then to set a 90 degree phase shift, you simply enter that multiple into the phase register. Remember when setting multiple outputs to be phase-related to each other, they each need to be referenced to the same PLL.
-
-You can see this in action in a sketch in the examples folder called _si5351phase_. It shows how one would set up an I/Q pair of signals at 14.1 MHz.
 
     // We will output 14.1 MHz on CLK0 and CLK1.
     // A PLLA frequency of 705 MHz was chosen to give an even
