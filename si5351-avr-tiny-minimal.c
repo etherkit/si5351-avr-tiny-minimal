@@ -30,7 +30,7 @@ struct Si5351Status dev_status;
 struct Si5351IntStatus dev_int_status;
 
 /*
- * init(uint8_t xtal_load_c, uint32_t ref_osc_freq)
+ * si5351_init(uint8_t xtal_load_c, uint32_t ref_osc_freq)
  *
  * Setup communications to the Si5351 and set the crystal
  * load capacitance.
@@ -189,7 +189,7 @@ void si5351_set_pll(struct Si5351Frac frac, enum si5351_pll target_pll)
 }
 
 /*
- * set_ms(enum si5351_clock clk, struct Si5351Frac frac, uint8_t int_mode, uint8_t r_div, uint8_t div_by_4)
+ * si5351_set_ms(enum si5351_clock clk, struct Si5351Frac frac, uint8_t int_mode, uint8_t r_div, uint8_t div_by_4)
  *
  * Set the specified multisynth parameters.
  *
